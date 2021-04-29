@@ -4,14 +4,15 @@
     #include <ctype.h>
     void yyerror(char *str);
     int yylex();
+    
 %}
 
 %token IF ELSE NUM ID FOR RELOP BOOL ARITHOP ASSIGN SC INC
 
 %%
-CODE: S {printf("Syntactically Correct");};
+CODE: S CODE {printf("Syntactically Correct");}| S {printf("Syntactically Correct");};
 
-S: IFSTMT S | FORSTMT S |STMT;
+S: IFSTMT  | FORSTMT  |STMT;
 
 FORSTMT: FOR ID ASSIGN NUM SC CONDITION SC ID INC S;
 

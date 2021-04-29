@@ -1,1 +1,3 @@
 lex tac.l; yacc tac.y -d; gcc lex.yy.c y.tab.c -w -lm; ./a.out;
+yacc tac.y -d
+lex tac.l;gcc lex.yy.c y.tab.c -w -lm; ./a.out <in.txt;
