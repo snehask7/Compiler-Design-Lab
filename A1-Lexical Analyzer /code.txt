@@ -1,0 +1,17 @@
+/* This is a multi
+line 
+comment*/
+hello(){
+  printf("Hello world");
+}
+main()
+{
+	int a=10;b=20;
+    char c='a';
+    float x=2.34;
+    hello();
+	if(a>b) //check
+    printf("a is greater");
+	else
+    printf("b is greater");
+}

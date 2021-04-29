@@ -1,0 +1,9 @@
+a=5;
+b=3;
+while(a<b)
+{
+    if(a=jk=b)
+        a=a+1;
+    else
+        b=b+1;
+}

@@ -1,0 +1,4 @@
+E->T|E+T|A*B
+T->F|T*F
+G->G*F
+F->id
