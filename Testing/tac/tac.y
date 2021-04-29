@@ -1,6 +1,7 @@
 %{
     #include <stdio.h>
     #include <stdlib.h>
+    #include <string.h>
     void yyerror(char *str);
     int yylex();
 
@@ -50,12 +51,42 @@ E: F MOP E {$$=init();
             sprintf($$->code, "%s%s\n%s = %s %s %s\n", $1->code, $3->code, $$->var, $1->var,$2, $3->var);
            }
   | F {$$=$1;};
-F: F AOP T  {$$=init();   
+F: F AOP T  {printf("here");$$=init();   
             sprintf($$->var, "t%d", tac++);
-            sprintf($$->code, "%s%s\n%s = %s %s %s\n", $1->code, $3->code, $$->var, $1->var,$2, $3->var);
+            char opt[100];
+            if(strcmp($1->var,"0")==0)
+            {
+                if(strcmp($$->var,$3->var)==0 && (strcmp($2,"+")==0))
+                {
+                    opt[0]='\0';
+                }
+                else if(strcmp($2,"+")==0)
+                {
+                    sprintf(opt,"%s=%s",$$->var,$3->var);
+                }
+                else 
+                {
+                    sprintf(opt,"%s=-%s",$$->var,$3->var);
+                }
+            }
+            else if(strcmp($3->var,"0")==0)
+            {
+                if($$->var==$1->var)
+                {
+                    opt[0]='\0';
+                }
+                else
+                {
+                sprintf(opt,"%s=%s",$$->var,$1->var);
+                }
+            }
+            else
+                sprintf(opt,"%s=%s+%s",$$->var,$1->var,$3->var);
+        
+            sprintf($$->code, "%s%s\n%s\n", $1->code, $3->code, opt);
            }
     | T {$$=$1;};
-T: ID {$$=init();sprintf($$->var,"%s",$1);};
+T: ID {$$=init();sprintf($$->var,"%s",$1);} | NUM {$$=init();sprintf($$->var,"%s",$1);};
 %%
 
 void yyerror(char *str){

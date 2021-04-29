@@ -2,7 +2,7 @@ var i:integer;
 var i:integer=5;
 begin
 if(a>d) then
-    x=a+b*c/d;
+    x=0-a;
 else
-    x=a*b/c-d;
+    y=0-b;
 end
