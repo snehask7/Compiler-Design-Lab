@@ -60,9 +60,7 @@ extern int yydebug;
     RELOP = 266,
     AOP = 267,
     MOP = 268,
-    ELSE = 269,
-    WHILE = 270,
-    DO = 271
+    ELSE = 269
   };
 #endif
 /* Tokens.  */
@@ -78,20 +76,18 @@ extern int yydebug;
 #define AOP 267
 #define MOP 268
 #define ELSE 269
-#define WHILE 270
-#define DO 271
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 26 "tac.y"
+#line 29 "tacgen.y"
 
     char *str;
     int num;
     struct node *strct;
 
-#line 95 "y.tab.h"
+#line 91 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

@@ -1,6 +1,8 @@
 var i:integer;
 var i:integer=5;
 begin
-while(a>b) do
-    x=a+b;
+if(a>d) then
+    x=0-a;
+else
+    y=0-b;
 end

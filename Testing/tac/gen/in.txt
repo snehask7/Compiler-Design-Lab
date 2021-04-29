@@ -1,6 +1,7 @@
 var i:integer;
 var i:integer=5;
+var b:integer=3;
 begin
-while(a>b) do
-    x=a+b;
+if(a>d) then
+    x=b-a;
 end

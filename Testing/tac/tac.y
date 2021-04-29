@@ -21,7 +21,7 @@
     int tac=1;
 %}
 
-%token NUM VAR ID DT BEG END IF THEN RELOP AOP MOP ELSE
+%token NUM VAR ID DT BEG END IF THEN RELOP AOP MOP ELSE WHILE DO
 
 %union{
     char *str;
@@ -30,7 +30,7 @@
 }
 
 %type <str> DT ID VAR NUM RELOP AOP MOP
-%type<strct> DEC DECS S IFSTMT BODY CONDITION STMT F E T
+%type<strct> DEC DECS S IFSTMT BODY CONDITION STMT F E T WHILESTMT
 %right MOP
 %left AOP
 
@@ -40,7 +40,8 @@ DECS: DEC DECS {$$=init();sprintf($$->code,"%s\n%s",$1->code,$2->code);}
       |DEC  {$$=$1;};
 DEC:  VAR ID ':' DT ';' {$$=init();sprintf($$->code,"%s %s;",$4,$2);}|
         VAR ID ':' DT '=' NUM ';' {$$=init();sprintf($$->code,"%s %s=%s;",$4,$2,$6);};
-BODY: IFSTMT {$$=$1;}
+BODY: IFSTMT {$$=$1;}| WHILESTMT {$$=$1;};
+WHILESTMT : WHILE CONDITION DO STMT {$$=init();sprintf($$->code,"while %s goto %s\ngoto %s\n%s:%s\n%s:",$2->code,$2->true,$2->out,$2->true,$4->code,$2->out);}
 IFSTMT: IF CONDITION THEN STMT{$$=init();sprintf($$->code,"if %s goto %s\ngoto %s\n%s: %s\n%s:",$2->code,$2->true,$2->out,$2->true,$4->code,$2->out);}|
         IF CONDITION THEN STMT ELSE STMT{$$=init();sprintf($$->code,"if %s goto %s\n%s\ngoto %s\n%s: %s\n%s:",$2->code,$2->true,$6->code,$2->out,$2->true,$4->code,$2->out);};
 CONDITION: '(' ID RELOP ID ')'  {$$=init();sprintf($$->code,"%s %s %s",$2,$3,$4);sprintf($$->true,"L%d",count++);sprintf($$->out,"L%d",count++);};

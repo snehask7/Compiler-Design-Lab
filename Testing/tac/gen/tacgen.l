@@ -15,8 +15,6 @@ digit [0-9]
 "if"    {return IF;}
 "else"  {return ELSE;}
 "then"  {return THEN;}
-"while" {return WHILE;}
-"do"    {return DO;}
 "integer"|"float"|"char"    {yylval.str=strdup(yytext);return DT;}
 {letter}({letter}|{digit})* {yylval.str=strdup(yytext);return ID;}
 [ \n\t] ;
